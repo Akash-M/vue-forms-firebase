@@ -19,7 +19,6 @@ export default class SignUp extends Vue {
   async signUp() {
     try {
       const user = await firebase.auth().createUserWithEmailAndPassword(this.email, this.password);
-      console.log('created user', user);
       this.$router.push({name : 'login'});
     } catch (error) {
       alert(`error ${error}`);
