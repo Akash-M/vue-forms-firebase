@@ -37,13 +37,11 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-  const currentUser = firebase.auth().currentUser;
+  const isCurrentUserSet = localStorage.getItem('token');
   const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
 
-  if (requiresAuth && !currentUser) {
+  if (requiresAuth && !isCurrentUserSet) {
     next('login');
-  } else if (requiresAuth && currentUser) {
-    next('hello');
   } else {
     next();
   }

@@ -22,6 +22,9 @@ export default class Login extends Vue {
   async signIn() {
     try {
       await firebase.auth().signInWithEmailAndPassword(this.email, this.password);
+      const user = firebase.auth().currentUser;
+      const token = await user.getIdToken();
+      localStorage.setItem('token', token);
       this.$router.push({ name: 'home' });
     } catch (err) {
       alert(`error authenticating ${err.message}`);
